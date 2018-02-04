@@ -17,7 +17,8 @@ package ddossim;
  *
  * @author Zachary Waller
  */
-public class DDOSSim {
+public class DDOSSim
+{
 
     /**
      * @param args
@@ -25,7 +26,7 @@ public class DDOSSim {
     public static void main(String[] args)
     {
         SimMgr mgr = new SimMgr();
-        if(mgr.Initialize(args))
+        if (mgr.Initialize(args))
         {
             mgr.Run();
         }
@@ -34,5 +35,5 @@ public class DDOSSim {
             System.out.println("Simulation Manager failed to initialize.");
         }
     }
-    
+
 }

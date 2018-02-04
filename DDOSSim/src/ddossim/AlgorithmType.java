@@ -8,6 +8,7 @@ package ddossim;
  *
  * @author Zachary Waller
  */
-public enum AlgorithmType {
+public enum AlgorithmType
+{
     NodeSampling, EdgeSampling
 }

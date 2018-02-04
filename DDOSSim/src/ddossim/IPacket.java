@@ -8,8 +8,9 @@ package ddossim;
  *
  * @author Zachary Waller
  */
-public interface IPacket {
-    
+public interface IPacket
+{
+
     public int GetToAddress();
-    
+
 }
