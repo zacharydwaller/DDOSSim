@@ -1,8 +1,0 @@
-<#if licenseFirst??>
-${licenseFirst}
-</#if>
-${licensePrefix}Author: Zachary Waller
-${licensePrefix}CS 445 - Spring 2018
-<#if licenseLast??>
-${licenseLast}
-</#if>
