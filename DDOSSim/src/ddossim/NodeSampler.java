@@ -28,6 +28,8 @@ public class NodeSampler implements ISampler
     @Override
     public void LogPacket(IPacket packet)
     {
+        if(!packet.IsFromAttacker()) return;
+        
         NodePacket nodePacket = (NodePacket) packet;
         int rr = nodePacket.GetRR();
         if (nodeTable.containsKey(rr))
@@ -38,7 +40,7 @@ public class NodeSampler implements ISampler
         }
         else
         {
-            nodeTable.put(rr, new NodeTuple(rr, 1));
+            nodeTable.put(rr, new NodeTuple(nodePacket.GetSrcAddress(), rr, 1));
         }
     }
 

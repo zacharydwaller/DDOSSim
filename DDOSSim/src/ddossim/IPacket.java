@@ -11,8 +11,11 @@ package ddossim;
 public interface IPacket
 {
     
-    // Not keeping track of SrcAddress because assuming attacker spoofed it
+    public int GetSrcAddress();
     
     public int GetDestAddress();
 
+    // Assuming attack detection is flagging suspicious packets
+    public boolean IsFromAttacker();
+    
 }

@@ -8,16 +8,23 @@ package ddossim;
  *
  * @author Zachary Waller
  */
-public class NodeTuple implements ITuple
+public class NodeTuple
 {
     
-    public int Address;
+    public int Source;
+    public int Node;
     public int Count;
     
-    public NodeTuple(int address, int count)
+    public NodeTuple(int source, int node, int count)
     {
-        Address = address;
+        Source = source;
+        Node = node;
         Count = count;
     }
     
+    @Override
+    public String toString()
+    {
+        return String.format("Src: %d; Node: %d; Count: %d", Source, Node, Count);
+    }
 }

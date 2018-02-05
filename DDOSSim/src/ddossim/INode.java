@@ -12,6 +12,8 @@ public interface INode
 {
 
     public void GetAddress();
+    
+    public boolean IsAttacker();
 
     public void SendPacket(IPacket packet);
 

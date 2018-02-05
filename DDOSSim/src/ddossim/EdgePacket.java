@@ -11,15 +11,26 @@ package ddossim;
 public class EdgePacket implements IPacket
 {
 
+    private int srcAddress;
     private int destAddress;
+    private boolean isFromAttacker;
     private int edgeStartAddress;
     private int edgeEndAddress;
     private int distance;
 
-    public EdgePacket(int dest)
+    public EdgePacket(int src, int dest, boolean isFromAttacker)
     {
+        srcAddress = src;
         destAddress = dest;
+        this.isFromAttacker = isFromAttacker;
+        edgeStartAddress = src;
         distance = 0;
+    }
+    
+    @Override
+    public int GetSrcAddress()
+    {
+        return srcAddress;
     }
     
     @Override
@@ -27,6 +38,13 @@ public class EdgePacket implements IPacket
     {
         return destAddress;
     }
+    
+    @Override
+    public boolean IsFromAttacker()
+    {
+        return isFromAttacker;
+    }
+
     
     public int GetEdgeStart()
     {

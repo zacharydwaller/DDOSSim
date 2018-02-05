@@ -77,7 +77,7 @@ public class SimMgr
     {
         // for each user, attacker: update
         // server update
-
+        
         Stop();
     }
 
