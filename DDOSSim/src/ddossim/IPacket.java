@@ -10,7 +10,9 @@ package ddossim;
  */
 public interface IPacket
 {
-
+    
+    // Not keeping track of SrcAddress because assuming attacker spoofed it
+    
     public int GetDestAddress();
 
 }

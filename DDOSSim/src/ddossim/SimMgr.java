@@ -4,6 +4,8 @@
  */
 package ddossim;
 
+import java.util.List;
+
 /**
  *
  * @author Zachary Waller
@@ -75,7 +77,7 @@ public class SimMgr
     {
         // for each user, attacker: update
         // server update
-        
+
         Stop();
     }
 
