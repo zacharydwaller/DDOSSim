@@ -11,6 +11,6 @@ package ddossim;
 public interface IPacket
 {
 
-    public int GetToAddress();
+    public int GetAddress();
 
 }
