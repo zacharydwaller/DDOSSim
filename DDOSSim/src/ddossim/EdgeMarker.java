@@ -4,6 +4,8 @@
  */
 package ddossim;
 
+import java.util.Random;
+
 /**
  *
  * @author Zachary Waller
@@ -21,15 +23,23 @@ public class EdgeMarker implements IMarker
     @Override
     public void MarkPacket(IPacket packet, float markingProbability)
     {
-        // let x be a random number [0..1)
-        // if x < p 
-        //      write address into packet.start
-        //      write 0 into packet.distance
-        // else
-        //      if packet.distance == 0
-        //          write address into packet.end
-        //      increment packet.distance
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Random rand = new Random();
+        EdgePacket edgePacket = (EdgePacket) packet;
+        
+        float x = rand.nextFloat();
+        if(x < markingProbability)
+        {
+            edgePacket.SetEdgeStart(address);
+            edgePacket.ZeroDistance();
+        }
+        else
+        {
+            if(edgePacket.GetDistance() == 0)
+            {
+                edgePacket.SetEdgeEnd(address);
+            }
+            edgePacket.IncrementDistance();
+        }
     }
     
 }

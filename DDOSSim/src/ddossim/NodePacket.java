@@ -11,10 +11,27 @@ package ddossim;
 public class NodePacket implements IPacket
 {
 
-    @Override
-    public int GetAddress()
+    private int destAddress;
+    private int rrAddress;
+
+    public NodePacket(int dest)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        destAddress = dest;
     }
     
+    @Override
+    public int GetDestAddress()
+    {
+        return destAddress;
+    }
+
+    public void SetRR(int address)
+    {
+        rrAddress = address;
+    }
+
+    public int GetRR()
+    {
+        return rrAddress;
+    }
 }
