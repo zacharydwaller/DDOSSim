@@ -88,28 +88,26 @@ public class SimMgr
     }
 
     private void Update()
-    {
-        cycle++;
-        
+    { 
         for(Client client : clients)
         {
             client.Update();
         }
         
         victim.Update();
-        
-        if(cycle % 1000 == 0)
-        {
-            PrintTopology();
-            victim.PrintStatistics();
-            PressEnterToContinue();
-        }
     }
 
     public int GetNextAddress()
     {
         lastUsedAddress += addressStride;
         return lastUsedAddress;
+    }
+    
+    public void PrintData()
+    {
+        PrintTopology();
+        victim.PrintStatistics();
+        PressEnterToContinue();
     }
     
     public void PrintTopology()

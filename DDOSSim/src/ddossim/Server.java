@@ -65,11 +65,16 @@ public class Server implements INode
     {
         packetCount++;
         sampler.LogPacket(packet);
+        
+        if(packetCount % 1000 == 0)
+        {
+            SimMgr.GetInstance().PrintData();
+        }
     }
     
     public void PrintStatistics()
     {
-        System.out.println("Cycle " + cycle + ". Current Statistics:");
+        System.out.println("Current Statistics:");
         sampler.PrintPath();
         System.out.println(String.format("\nTotal Packets: %d\n\n", packetCount));
     }
