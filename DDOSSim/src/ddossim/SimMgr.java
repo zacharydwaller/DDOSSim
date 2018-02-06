@@ -13,15 +13,20 @@ import java.util.List;
 public class SimMgr
 {
 
-    // Server Victim
+    private Server victim;
     // List<Attackers>
+    // List<Routers>
+    
     private float markingProbability;
     private int branches;
     private int numAttackers;
     private int attackRate; // x times more packets per update than normal client
-    private AlgorithmType algorithm;
+    private AlgorithmType samplingAlgorithm;
 
-    private int numRouters = 20;
+    private int lastUsedAddress = 0;
+    private final int addressStride = 100;
+    
+    private final int numRouters = 20;
 
     private boolean isRunning = false;
 
@@ -37,20 +42,17 @@ public class SimMgr
 
     public AlgorithmType GetAlgorithm()
     {
-        return algorithm;
+        return samplingAlgorithm;
     }
-
-    public SimMgr()
-    {
-
-    }
-
+    
     public boolean Initialize(String[] args)
     {
         if (!TryParseArgs(args))
         {
             return false;
         }
+        
+        victim = new Server(GetNextAddress(), samplingAlgorithm);
 
         return true;
     }
@@ -76,11 +78,16 @@ public class SimMgr
     private void Update()
     {
         // for each user, attacker: update
-        // server update
         
-        Stop();
+        victim.Update();
     }
 
+    private int GetNextAddress()
+    {
+        lastUsedAddress += addressStride;
+        return lastUsedAddress;
+    }
+    
     /**
      * @param args
      */
@@ -102,13 +109,13 @@ public class SimMgr
 
             if (algFlag == 'E')
             {
-                algorithm = AlgorithmType.EdgeSampling;
+                samplingAlgorithm = AlgorithmType.EdgeSampling;
             }
             else
             {
                 if (algFlag == 'N')
                 {
-                    algorithm = AlgorithmType.NodeSampling;
+                    samplingAlgorithm = AlgorithmType.NodeSampling;
                 }
                 else
                 {
@@ -162,4 +169,20 @@ public class SimMgr
 
         return true;
     }
+    
+    /* Singleton Pattern */
+    
+    private static SimMgr instance = null;
+    
+    protected SimMgr() {}
+    
+    public static SimMgr GetInstance()
+    {
+        if(instance == null)
+        {
+            instance = new SimMgr();
+        }
+        return instance;
+    }
+        
 }

@@ -25,7 +25,7 @@ public class DDOSSim
      */
     public static void main(String[] args)
     {
-        SimMgr mgr = new SimMgr();
+        SimMgr mgr = SimMgr.GetInstance();
         if (mgr.Initialize(args))
         {
             mgr.Run();

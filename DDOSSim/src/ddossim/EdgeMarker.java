@@ -21,7 +21,7 @@ public class EdgeMarker implements IMarker
     }
     
     @Override
-    public void MarkPacket(IPacket packet, float markingProbability)
+    public void ProcessPacket(IPacket packet, float markingProbability)
     {
         Random rand = new Random();
         EdgePacket edgePacket = (EdgePacket) packet;

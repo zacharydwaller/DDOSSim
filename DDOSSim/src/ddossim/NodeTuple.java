@@ -11,13 +11,11 @@ package ddossim;
 public class NodeTuple
 {
     
-    public int Source;
     public int Node;
     public int Count;
     
-    public NodeTuple(int source, int node, int count)
+    public NodeTuple(int node, int count)
     {
-        Source = source;
         Node = node;
         Count = count;
     }
@@ -25,6 +23,6 @@ public class NodeTuple
     @Override
     public String toString()
     {
-        return String.format("Src: %d; Node: %d; Count: %d", Source, Node, Count);
+        return String.format("Node: %d; Count: %d", Node, Count);
     }
 }

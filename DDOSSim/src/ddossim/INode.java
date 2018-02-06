@@ -11,7 +11,7 @@ package ddossim;
 public interface INode
 {
 
-    public void GetAddress();
+    public int GetAddress();
     
     public boolean IsAttacker();
 

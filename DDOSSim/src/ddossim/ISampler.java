@@ -15,4 +15,6 @@ public interface ISampler
 
     public void LogPacket(IPacket packet);
 
+    public void PrintPath();
+    
 }

@@ -28,9 +28,11 @@ public class NodeSampler implements ISampler
     @Override
     public void LogPacket(IPacket packet)
     {
-        if(!packet.IsFromAttacker()) return;
-        
         NodePacket nodePacket = (NodePacket) packet;
+        
+        // Packet wasn't ever marked, don't log
+        if(nodePacket.GetRR() == 0) return;
+        
         int rr = nodePacket.GetRR();
         if (nodeTable.containsKey(rr))
         {
@@ -40,7 +42,7 @@ public class NodeSampler implements ISampler
         }
         else
         {
-            nodeTable.put(rr, new NodeTuple(nodePacket.GetSrcAddress(), rr, 1));
+            nodeTable.put(rr, new NodeTuple(rr, 1));
         }
     }
 
@@ -50,6 +52,20 @@ public class NodeSampler implements ISampler
         Collections.sort(path, new CountCompare());
 
         return path;
+    }
+    
+    @Override
+    public void PrintPath()
+    {
+        List<NodeTuple> path = ReconstructPath();
+        
+        for(NodeTuple node : path)
+        {
+            if(node != null)
+            {
+                System.out.println(node.toString());
+            }
+        }
     }
 
     class CountCompare implements Comparator<NodeTuple>

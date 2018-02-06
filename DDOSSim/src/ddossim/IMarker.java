@@ -10,5 +10,5 @@ package ddossim;
  */
 public interface IMarker
 {
-    public void MarkPacket(IPacket packet, float markingProbability);
+    public void ProcessPacket(IPacket packet, float markingProbability);
 }

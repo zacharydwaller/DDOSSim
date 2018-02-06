@@ -14,13 +14,11 @@ public class NodePacket implements IPacket
     private int srcAddress;
     private int destAddress;
     private int rrAddress;
-    private boolean isFromAttacker;
 
-    public NodePacket(int src, int dest, boolean isFromAttacker)
+    public NodePacket(int src, int dest)
     {
         srcAddress = src;
         destAddress = dest;
-        this.isFromAttacker = isFromAttacker;
     }
     
     @Override
@@ -33,12 +31,6 @@ public class NodePacket implements IPacket
     public int GetDestAddress()
     {
         return destAddress;
-    }
-    
-    @Override
-    public boolean IsFromAttacker()
-    {
-        return isFromAttacker;
     }
 
     public void SetRR(int address)

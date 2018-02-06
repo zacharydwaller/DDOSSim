@@ -14,8 +14,5 @@ public interface IPacket
     public int GetSrcAddress();
     
     public int GetDestAddress();
-
-    // Assuming attack detection is flagging suspicious packets
-    public boolean IsFromAttacker();
     
 }

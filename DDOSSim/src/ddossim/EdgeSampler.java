@@ -28,8 +28,6 @@ public class EdgeSampler implements ISampler
     @Override
     public void LogPacket(IPacket packet)
     {
-        if(!packet.IsFromAttacker()) return;
-        
         EdgePacket edgePacket = (EdgePacket) packet;
         if(edgePacket.GetDistance() == 0)
         {
@@ -58,6 +56,20 @@ public class EdgeSampler implements ISampler
         System.out.println(edgeTree.size());
         
         return path;
+    }
+    
+    @Override
+    public void PrintPath()
+    {
+        List<EdgeTuple> path = ReconstructPath();
+        
+        for(EdgeTuple edge : path)
+        {
+            if(edge != null)
+            {
+                System.out.println(edge.toString());
+            }
+        }
     }
     
     class EdgeCompare implements Comparator<EdgeTuple>

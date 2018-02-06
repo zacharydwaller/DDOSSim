@@ -13,16 +13,14 @@ public class EdgePacket implements IPacket
 
     private int srcAddress;
     private int destAddress;
-    private boolean isFromAttacker;
     private int edgeStartAddress;
     private int edgeEndAddress;
     private int distance;
 
-    public EdgePacket(int src, int dest, boolean isFromAttacker)
+    public EdgePacket(int src, int dest)
     {
         srcAddress = src;
         destAddress = dest;
-        this.isFromAttacker = isFromAttacker;
         edgeStartAddress = src;
         distance = 0;
     }
@@ -38,14 +36,7 @@ public class EdgePacket implements IPacket
     {
         return destAddress;
     }
-    
-    @Override
-    public boolean IsFromAttacker()
-    {
-        return isFromAttacker;
-    }
 
-    
     public int GetEdgeStart()
     {
         return edgeStartAddress;
