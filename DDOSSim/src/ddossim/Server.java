@@ -71,4 +71,9 @@ public class Server implements INode
         sampler.LogPacket(packet);
     }
     
+    @Override
+    public String toString()
+    {
+        return String.format("Server, Addr: " + address);
+    }
 }

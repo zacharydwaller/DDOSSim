@@ -14,8 +14,8 @@ public class SimMgr
 {
 
     private Server victim;
-    // List<Attackers>
-    // List<Routers>
+    private List<Router> routers;
+    // List<Clients>
     
     private float markingProbability;
     private int branches;
@@ -24,7 +24,7 @@ public class SimMgr
     private AlgorithmType samplingAlgorithm;
 
     private int lastUsedAddress = 0;
-    private final int addressStride = 100;
+    private final int addressStride = 10;
     
     private final int numRouters = 20;
 
@@ -53,7 +53,10 @@ public class SimMgr
         }
         
         victim = new Server(GetNextAddress(), samplingAlgorithm);
+        routers = TopologyGeneration.Generate(victim, numRouters);
 
+        PrintTopology();
+        
         return true;
     }
 
@@ -80,12 +83,24 @@ public class SimMgr
         // for each user, attacker: update
         
         victim.Update();
+        Stop();
     }
 
-    private int GetNextAddress()
+    public int GetNextAddress()
     {
         lastUsedAddress += addressStride;
         return lastUsedAddress;
+    }
+    
+    public void PrintTopology()
+    {
+        System.out.println("Victim has an address of: " + victim.GetAddress());
+        System.out.println("Topology:");
+        System.out.println(victim.toString());
+        for(Router router : routers)
+        {
+            System.out.println(router.toString());
+        }
     }
     
     /**
