@@ -4,7 +4,9 @@
  */
 package ddossim;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -15,7 +17,7 @@ public class SimMgr
 
     private Server victim;
     private List<Router> routers;
-    // List<Clients>
+    private List<Client> clients;
     
     private float markingProbability;
     private int branches;
@@ -29,6 +31,7 @@ public class SimMgr
     private final int numRouters = 20;
 
     private boolean isRunning = false;
+    private long cycle = 0;
 
     public float GetMarkingProbability()
     {
@@ -45,6 +48,11 @@ public class SimMgr
         return samplingAlgorithm;
     }
     
+    public int GetVictimAddress()
+    {
+        return victim.GetAddress();
+    }
+    
     public boolean Initialize(String[] args)
     {
         if (!TryParseArgs(args))
@@ -54,7 +62,8 @@ public class SimMgr
         
         victim = new Server(GetNextAddress(), samplingAlgorithm);
         routers = TopologyGeneration.Generate(victim, numRouters);
-
+        GenerateClients();
+        
         PrintTopology();
         
         return true;
@@ -80,10 +89,21 @@ public class SimMgr
 
     private void Update()
     {
-        // for each user, attacker: update
+        cycle++;
+        
+        for(Client client : clients)
+        {
+            client.Update();
+        }
         
         victim.Update();
-        Stop();
+        
+        if(cycle % 1000 == 0)
+        {
+            PrintTopology();
+            victim.PrintStatistics();
+            PressEnterToContinue();
+        }
     }
 
     public int GetNextAddress()
@@ -94,13 +114,69 @@ public class SimMgr
     
     public void PrintTopology()
     {
-        System.out.println("Victim has an address of: " + victim.GetAddress());
-        System.out.println("Topology:");
+        System.out.println("TOPOLOGY:");
+        
+        System.out.println("Victim:");
         System.out.println(victim.toString());
+        
+        System.out.println("Clients:");
+        for(Client client : clients)
+        {
+            System.out.println(client.toString());
+        }
+            
+        System.out.println("Routers:");
         for(Router router : routers)
         {
             System.out.println(router.toString());
         }
+        
+        System.out.println("");
+    }
+    
+    public void PressEnterToContinue()
+    { 
+        System.out.println("Press Enter key to continue...");
+        try
+        {
+            System.in.read();
+        }  
+        catch(Exception e)
+        {}  
+    }
+    
+    private void GenerateClients()
+    {
+        Random rand = new Random();
+        List<Router> endpoints = GetEndpoints();
+        int count = 0;
+        
+        clients = new ArrayList<>();
+        for(int i = 0; i < branches; i++)
+        {
+            int endpoint = rand.nextInt(endpoints.size());
+            boolean isAttacker = count < numAttackers;
+            
+            Client client = new Client(GetNextAddress(), endpoints.get(endpoint), isAttacker);
+            
+            clients.add(client);
+            endpoints.remove(endpoint);
+            count++;
+        }
+    }
+    
+    private List<Router> GetEndpoints()
+    {
+        List<Router> endpoints = new ArrayList<>();
+        for(Router router : routers)
+        {
+            if(!router.HasChildren())
+            {
+                endpoints.add(router);
+            }
+        }
+        
+        return endpoints;
     }
     
     /**

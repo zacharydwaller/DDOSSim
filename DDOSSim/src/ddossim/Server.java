@@ -39,10 +39,6 @@ public class Server implements INode
     
     public void Update()
     {
-        System.out.println("Cycle " + cycle + ". Current Statistics:");
-        sampler.PrintPath();
-        System.out.println(String.format("\nTotal Packets: %d\n\n", packetCount));
-        
         cycle++;
     }
     
@@ -69,6 +65,13 @@ public class Server implements INode
     {
         packetCount++;
         sampler.LogPacket(packet);
+    }
+    
+    public void PrintStatistics()
+    {
+        System.out.println("Cycle " + cycle + ". Current Statistics:");
+        sampler.PrintPath();
+        System.out.println(String.format("\nTotal Packets: %d\n\n", packetCount));
     }
     
     @Override

@@ -28,8 +28,7 @@ public class DDOSSim
         SimMgr mgr = SimMgr.GetInstance();
         if (mgr.Initialize(args))
         {
-            PressEnterToContinue();
-            
+            mgr.PressEnterToContinue();
             mgr.Run();
         }
         else
@@ -38,14 +37,5 @@ public class DDOSSim
         }
     }
 
-    private static void PressEnterToContinue()
-    { 
-        System.out.println("Press Enter key to continue...");
-        try
-        {
-            System.in.read();
-        }  
-        catch(Exception e)
-        {}  
-    }
+    
 }
