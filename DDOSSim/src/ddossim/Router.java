@@ -49,6 +49,11 @@ public class Router implements INode
         return !children.isEmpty();
     }
     
+    public int ChildCount()
+    {
+        return children.size();
+    }
+    
     @Override
     public int GetAddress()
     {
