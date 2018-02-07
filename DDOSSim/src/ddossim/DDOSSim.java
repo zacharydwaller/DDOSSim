@@ -3,11 +3,11 @@
  * CS 445 - Spring 2018
  * 
  * Usage:
- * @param args topologyFile markingAlgorithm markingProb branches attackers attackRate
+ * @param args topologyFile markingAlgorithm markingProb users attackers attackRate
  * Example: java DDOSSim top1.top E 0.6 5 1 100
  * markingAlgorithm: N for Node Sampling, E for Edge Sampling
  * markingProb: .2, .4, .5, .6, or .8
- * branches: 3, 4, or 5
+ * users: 1 or 2
  * attackers: 1 or 2
  * attackRate: 10, 100, or 1000
  */

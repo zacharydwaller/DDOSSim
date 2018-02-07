@@ -20,7 +20,7 @@ public class SimMgr
     private List<Client> clients;
     
     private float markingProbability;
-    private int branches;
+    private int numUsers;
     private int numAttackers;
     private int attackRate; // x times more packets per update than normal client
     private AlgorithmType samplingAlgorithm;
@@ -147,19 +147,17 @@ public class SimMgr
     {
         Random rand = new Random();
         List<Router> endpoints = GetEndpoints();
-        int count = 0;
         
         clients = new ArrayList<>();
-        for(int i = 0; i < branches; i++)
+        for(int i = 0; i < numUsers + numAttackers; i++)
         {
             int endpoint = rand.nextInt(endpoints.size());
-            boolean isAttacker = count < numAttackers;
+            boolean isAttacker = i < numAttackers;
             
             Client client = new Client(GetNextAddress(), endpoints.get(endpoint), isAttacker);
             
             clients.add(client);
             endpoints.remove(endpoint);
-            count++;
         }
     }
     
@@ -221,13 +219,13 @@ public class SimMgr
                 throw new IllegalArgumentException("Marking probability must be between 0 and 1.");
             }
 
-            // Branches
-            branches = Integer.parseInt(args[arg]);
+            // Normal Users
+            numUsers = Integer.parseInt(args[arg]);
             arg++;
 
-            if (branches < 3 || branches > 5)
+            if (numUsers < 1 || numUsers > 2)
             {
-                throw new IllegalArgumentException("Branches must be between 3 and 5.");
+                throw new IllegalArgumentException("# of Normal users must be 1 or 2.");
             }
 
             // Attackers
