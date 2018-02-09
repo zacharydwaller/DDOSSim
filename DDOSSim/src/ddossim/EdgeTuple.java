@@ -33,4 +33,10 @@ public class EdgeTuple
     {
         return String.format("Edge: %d - %d; Distance: %d", Start, End, Distance);
     }
+    
+    @Override
+    public int hashCode()
+    {
+        return (Start * 1000) + End;
+    }
 }

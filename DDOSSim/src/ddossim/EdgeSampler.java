@@ -5,9 +5,10 @@
 package ddossim;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.TreeSet;
+import java.util.HashMap;
 
 /**
  *
@@ -16,13 +17,13 @@ import java.util.TreeSet;
 public class EdgeSampler implements ISampler
 {
 
-    private TreeSet<EdgeTuple> edgeTree;
+    private HashMap<Integer, EdgeTuple> edges;
     private int rootAddress;
     
     public EdgeSampler(int rootAddress)
     {
         this.rootAddress = rootAddress;
-        edgeTree = new TreeSet<>(new EdgeCompare());
+        edges = new HashMap<>();
     }
     
     @Override
@@ -32,30 +33,34 @@ public class EdgeSampler implements ISampler
         if(edgePacket.GetDistance() == 0)
         {
             edgePacket.SetEdgeEnd(rootAddress);
-            edgeTree.add(new EdgeTuple(edgePacket));
         }
-        else
-        {
-            edgeTree.add(new EdgeTuple(edgePacket));
-        }
+        
+        EdgeTuple tuple = new EdgeTuple(edgePacket);
+        edges.put(tuple.hashCode(), tuple);
     }
     
     public List<EdgeTuple> ReconstructPath()
     {
-        List<EdgeTuple> path = new ArrayList<>();
+        List<EdgeTuple> path = new ArrayList<>(edges.values());
+        Collections.sort(path, new EdgeCompare());
+        
+        return path;
+        
+        /*
         int distance = -1;
         
         EdgeTuple root = null;
         do
         {
-            root = edgeTree.higher(new EdgeTuple(distance));
+            root = edges.higher(new EdgeTuple(distance));
             path.add(root);
             distance++;
         } while(root != null);
 
-        System.out.println(edgeTree.size());
+        System.out.println(edges.size());
         
         return path;
+        */
     }
     
     @Override
@@ -75,11 +80,11 @@ public class EdgeSampler implements ISampler
     class EdgeCompare implements Comparator<EdgeTuple>
     {
 
-        // Sort by end and then start nodes
         @Override
         public int compare(EdgeTuple a, EdgeTuple b)
         {
             return a.Distance - b.Distance;
         }
+        
     }
 }
