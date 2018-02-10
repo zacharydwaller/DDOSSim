@@ -31,7 +31,7 @@ public class EdgeTuple
     @Override
     public String toString()
     {
-        return String.format("Edge: %d - %d; Distance: %d", Start, End, Distance);
+        return String.format("Edge: %d - %d; Distance: %d", End, Start, Distance);
     }
     
     @Override

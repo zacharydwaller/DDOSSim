@@ -66,7 +66,7 @@ public class Server implements INode
         packetCount++;
         sampler.LogPacket(packet);
         
-        if(packetCount % 1000 == 0)
+        if(packetCount % 100 == 0)
         {
             SimMgr.GetInstance().PrintData();
         }
